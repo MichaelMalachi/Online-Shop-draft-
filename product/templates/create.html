@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Автоматическое рендеринг полей формы -->
+    <button type="submit">Отправить</button>
+</form>
+{% endblock %}
