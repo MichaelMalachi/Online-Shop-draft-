@@ -1,16 +1,26 @@
-
 from django.contrib import admin
-from django.urls import path
-from product.views import HomeView
+from django.urls import path, include
+from rest_framework import routers
+from product.views import (
+    HomeView,
+    CreateProduct,
+    ProductListView,
+    UserRegisterView,
+    ProductUpdateView,
+    ProductDeleteView,
+    ProductDetailView,
+    MyPageView,
+    ProductViewSet,
+)
 from django.contrib.auth import views as auth_views
-from product.views import CreateProduct
-from product.views import ProductListView
-from product.views import UserRegisterView
-from product.views import ProductUpdateView, ProductDeleteView, ProductDetailView
-from product.views import MyPageView
+from rest_framework.authtoken.views import obtain_auth_token
 
+# Инициализируем роутер
+router = routers.DefaultRouter()
+router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
+    # Ваши существующие маршруты
     path('', HomeView.as_view(), name='home'),
     path('create/', CreateProduct.as_view(), name='create-link'),
     path('register/', UserRegisterView.as_view(), name='register'),
@@ -22,4 +32,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('my-page/', MyPageView.as_view(), name='my_page'),
     path('admin/', admin.site.urls),
+
+    # Маршруты для REST API
+    path('api/', include(router.urls)),  # Let the router handle the API root
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

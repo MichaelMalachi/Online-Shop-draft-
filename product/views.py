@@ -1,20 +1,20 @@
 from django.views.generic import TemplateView
 from product.models import Products
-from django.views.generic import ListView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
-from django.views.generic import DetailView
+from django.views.generic import ListView, UpdateView, DeleteView, DetailView, CreateView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
 from product.models import CustomUser123
 from .forms import UserRegisterForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from rest_framework import viewsets
+from .serializers import ProductSerializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Products.objects.all()
+    serializer_class = ProductSerializer
 
 class MyPageView(LoginRequiredMixin, TemplateView):
     template_name = 'my_page.html'
-
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
     model = CustomUser123
@@ -23,15 +23,8 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('home')
     success_message = "Аккаунт успешно создан!"
 
-
-
-
-
-
 class HomeView(TemplateView):
     template_name = 'home.html'
-
-
 
 class CreateProduct(CreateView):
     model = Products
@@ -59,4 +52,3 @@ class ProductDetailView(DetailView):
     model = Products
     template_name = 'product_detail.html'
     context_object_name = 'product'
-

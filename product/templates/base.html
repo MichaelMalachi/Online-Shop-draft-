@@ -12,6 +12,7 @@
     <a class="navbar-brand" href="{% url 'home' %}">Home</a>
     <a class="navbar-brand" href="{% url 'product-link' %}">Products</a>
     <a class="navbar-brand" href="{% url 'create-link' %}">Create</a>
+    <a class="navbar-brand" href="/api/">API</a>  <!-- Updated link -->
 
     <!-- Если пользователь аутентифицирован, показываем "Моя страница" -->
     {% if user.is_authenticated %}
