@@ -131,3 +131,16 @@ AUTH_USER_MODEL = 'product.CustomUser123'
 
 LOGIN_REDIRECT_URL = 'home'  # Перенаправление после успешного входа
 LOGOUT_REDIRECT_URL = 'home'  # Перенаправление после выхода
+
+# Настройки Celery
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # URL вашего брокера (Redis)
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# Настройки для тестирования задач Celery
+CELERY_TASK_ALWAYS_EAGER = True  # Установите True для синхронного выполнения задач в тестах
+CELERY_TASK_EAGER_PROPAGATES = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

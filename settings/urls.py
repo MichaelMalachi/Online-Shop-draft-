@@ -33,6 +33,7 @@ urlpatterns = [
     path('my-page/', MyPageView.as_view(), name='my_page'),
     path('admin/', admin.site.urls),
 
+
     # Маршруты для REST API
     path('api/', include(router.urls)),  # Let the router handle the API root
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
